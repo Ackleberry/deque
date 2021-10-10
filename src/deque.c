@@ -223,7 +223,7 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
 }
 
 /*******************************************************************************
- * @brief  Peek at the data on the top of the deque
+ * @brief  Peek at the data at the front of the deque
  *
  * @param  pObj      Pointer to the deque object
  * @param  pDataOut  Pointer to the peeked data
