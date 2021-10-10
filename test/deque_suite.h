@@ -666,30 +666,55 @@ TEST Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_front(vo
     PASS();
 }
 
-// TEST Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_back(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint16_t buf[4];
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     uint16_t dataIn[] = { 999, 244, 1500, 1 };
-//     uint16_t peekData;
-//     uint16_t poppedData;
+TEST Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint16_t buf[4];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint16_t dataIn[] = { 999, 244, 1500, 1 };
+    uint16_t peekData;
+    uint16_t poppedData;
 
-//     Deque_PushBack(&q, &dataIn[0]);
-//     Deque_PushBack(&q, &dataIn[1]);
+    Deque_PushBack(&q, &dataIn[0]);
+    Deque_PushBack(&q, &dataIn[1]);
 
-//     /*****************     Act       *****************/
-//     Deque_Error_e err = Deque_PeekBack(&q, &peekData);
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PeekBack(&q, &peekData);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(Deque_Error_None, err);
-//     ASSERT_EQ(dataIn[0], peekData);
-//     Deque_PopBack(&q, &poppedData);
-//     ASSERT_EQ(peekData, poppedData);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, err);
+    ASSERT_EQ(dataIn[1], peekData);
+    Deque_PopBack(&q, &poppedData);
+    ASSERT_EQ(peekData, poppedData);
 
-//     PASS();
-// }
+    PASS();
+}
+
+TEST Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint16_t buf[4];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint16_t dataIn[] = { 999, 244, 1500, 1 };
+    uint16_t peekData;
+    uint16_t poppedData;
+
+    Deque_PushFront(&q, &dataIn[0]);
+    Deque_PushFront(&q, &dataIn[1]);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PeekBack(&q, &peekData);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, err);
+    ASSERT_EQ(dataIn[0], peekData);
+    Deque_PopBack(&q, &poppedData);
+    ASSERT_EQ(peekData, poppedData);
+
+    PASS();
+}
 
 // TEST Deque_can_fill_and_empty_a_large_buffer_with_1_byte_data_types(void)
 // {
@@ -893,6 +918,8 @@ SUITE(Deque_Suite)
 
     RUN_TEST(Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_back);
     RUN_TEST(Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_front);
+    RUN_TEST(Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_back);
+    RUN_TEST(Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_front);
 
     // /* Integration Tests */
     // RUN_TEST(Deque_can_fill_and_empty_a_large_buffer_with_1_byte_data_types);

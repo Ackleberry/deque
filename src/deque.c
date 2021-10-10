@@ -242,3 +242,24 @@ Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOut)
     pObj->rear = rear;
     return err;
 }
+
+/*******************************************************************************
+ * @brief  Peek at the data at the back of the deque
+ *
+ * @param  pObj      Pointer to the deque object
+ * @param  pDataOut  Pointer to the peeked data
+ *
+ * @returns Deque error flag
+ ******************************************************************************/
+Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOut)
+{
+    Deque_Error_e err = Deque_Error_None;
+    size_t front = pObj->front;
+    size_t rear = pObj->rear;
+
+    err = Deque_PopBack(pObj, pDataOut);
+
+    pObj->front = front;
+    pObj->rear = rear;
+    return err;
+}
