@@ -12,112 +12,229 @@
 /* Declare a local suite. */
 SUITE(Deque_Suite);
 
-// TEST Deque_can_report_empty(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+TEST Deque_can_report_empty(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
 
-//     /*****************     Act       *****************/
-//     bool isEmpty = Deque_IsEmpty(&q);
+    /*****************     Act       *****************/
+    bool isEmpty = Deque_IsEmpty(&q);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(true, isEmpty);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(true, isEmpty);
 
-//     PASS();
-// }
+    PASS();
+}
 
-// TEST Deque_can_report_not_empty(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     uint8_t dataIn = 5;
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     Deque_Push(&q, &dataIn);
+TEST Deque_can_report_not_full(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
 
-//     /*****************     Act       *****************/
-//     bool isEmpty = Deque_IsEmpty(&q);
+    /*****************     Act       *****************/
+    bool isFull = Deque_IsFull(&q);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(false, isEmpty);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(false, isFull);
 
-//     PASS();
-// }
+    PASS();
+}
 
-// TEST Deque_can_report_full(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     uint8_t dataIn = 5;
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     Deque_Push(&q, &dataIn);
-//     Deque_Push(&q, &dataIn);
+TEST Deque_can_report_not_empty_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    uint8_t dataIn = 5;
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    Deque_PushBack(&q, &dataIn);
 
-//     /*****************     Act       *****************/
-//     bool isFull = Deque_IsFull(&q);
+    /*****************     Act       *****************/
+    bool isEmpty = Deque_IsEmpty(&q);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(true, isFull);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(false, isEmpty);
 
-//     PASS();
-// }
+    PASS();
+}
 
-// TEST Deque_can_report_not_full(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+TEST Deque_can_report_not_empty_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    uint8_t dataIn = 5;
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    Deque_PushFront(&q, &dataIn);
 
-//     /*****************     Act       *****************/
-//     bool isFull = Deque_IsFull(&q);
+    /*****************     Act       *****************/
+    bool isEmpty = Deque_IsEmpty(&q);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(false, isFull);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(false, isEmpty);
 
-//     PASS();
-// }
+    PASS();
+}
 
-// TEST Deque_pop_fails_if_underflow(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     uint8_t dataOut;
+TEST Deque_can_report_full_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    uint8_t dataIn = 5;
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    Deque_PushBack(&q, &dataIn);
+    Deque_PushBack(&q, &dataIn);
 
-//     /*****************     Act       *****************/
-//     Deque_Error_e err = Deque_Pop(&q, &dataOut);
+    /*****************     Act       *****************/
+    bool isFull = Deque_IsFull(&q);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(Deque_Error, err);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(true, isFull);
 
-//     PASS();
-// }
+    PASS();
+}
 
-// TEST Deque_push_fails_if_overflow(void)
-// {
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     uint8_t buf[2];
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     uint8_t dataIn = 5;
+TEST Deque_can_report_full_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    uint8_t dataIn = 5;
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    Deque_PushFront(&q, &dataIn);
+    Deque_PushFront(&q, &dataIn);
 
-//     /* Fill the deque up */
-//     Deque_Push(&q, &dataIn);
-//     Deque_Push(&q, &dataIn);
+    /*****************     Act       *****************/
+    bool isFull = Deque_IsFull(&q);
 
-//     /*****************     Act       *****************/
-//     Deque_Error_e err = Deque_Push(&q, &dataIn);
+    /*****************    Assert     *****************/
+    ASSERT_EQ(true, isFull);
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(Deque_Error, err);
+    PASS();
+}
 
-//     PASS();
-// }
+TEST Deque_front_pop_fails_if_underflow(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataOut;
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PopFront(&q, &dataOut);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
+
+TEST Deque_back_pop_fails_if_underflow(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataOut;
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PopBack(&q, &dataOut);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
+
+TEST Deque_back_push_fails_due_to_overflow_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataIn = 5;
+
+    /* Fill the deque up */
+    Deque_PushBack(&q, &dataIn);
+    Deque_PushBack(&q, &dataIn);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PushBack(&q, &dataIn);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
+
+TEST Deque_back_push_fails_due_to_overflow_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataIn = 5;
+
+    /* Fill the deque up */
+    Deque_PushFront(&q, &dataIn);
+    Deque_PushFront(&q, &dataIn);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PushBack(&q, &dataIn);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
+
+TEST Deque_front_push_fails_due_to_overflow_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataIn = 5;
+
+    /* Fill the deque up */
+    Deque_PushBack(&q, &dataIn);
+    Deque_PushBack(&q, &dataIn);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PushFront(&q, &dataIn);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
+
+TEST Deque_front_push_fails_due_to_overflow_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint8_t buf[2];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint8_t dataIn = 5;
+
+    /* Fill the deque up */
+    Deque_PushFront(&q, &dataIn);
+    Deque_PushFront(&q, &dataIn);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PushFront(&q, &dataIn);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error, err);
+
+    PASS();
+}
 
 TEST Deque_can_front_pop_1_byte_data_types_when_pushed_from_back(void)
 {
@@ -499,28 +616,78 @@ TEST Deque_can_back_pop_struct_data_types_when_pushed_from_front()
     PASS();
 }
 
-// TEST Deque_can_peek_at_next_element_to_be_popped(void)
+TEST Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_back(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint16_t buf[4];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint16_t dataIn[] = { 999, 244, 1500, 1 };
+    uint16_t peekData;
+    uint16_t poppedData;
+
+    Deque_PushBack(&q, &dataIn[0]);
+    Deque_PushBack(&q, &dataIn[1]);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PeekFront(&q, &peekData);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, err);
+    ASSERT_EQ(dataIn[0], peekData);
+    Deque_PopFront(&q, &poppedData);
+    ASSERT_EQ(peekData, poppedData);
+
+    PASS();
+}
+
+TEST Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_front(void)
+{
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    uint16_t buf[4];
+    Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
+    uint16_t dataIn[] = { 999, 244, 1500, 1 };
+    uint16_t peekData;
+    uint16_t poppedData;
+
+    Deque_PushFront(&q, &dataIn[0]);
+    Deque_PushFront(&q, &dataIn[1]);
+
+    /*****************     Act       *****************/
+    Deque_Error_e err = Deque_PeekFront(&q, &peekData);
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, err);
+    ASSERT_EQ(dataIn[1], peekData);
+    Deque_PopFront(&q, &poppedData);
+    ASSERT_EQ(peekData, poppedData);
+
+    PASS();
+}
+
+// TEST Deque_can_peek_at_next_element_to_be_back_popped_when_pushed_from_back(void)
 // {
 //     /*****************    Arrange    *****************/
 //     Deque_t q;
 //     uint16_t buf[4];
 //     Deque_Init(&q, buf, sizeof(buf), sizeof(buf[0]));
-//     uint16_t dataIn[] = { 301, 244, 11, 1 };
+//     uint16_t dataIn[] = { 999, 244, 1500, 1 };
 //     uint16_t peekData;
 //     uint16_t poppedData;
 
-//     Deque_Push(&q, &dataIn[0]);
-//     Deque_Push(&q, &dataIn[1]);
-
+//     Deque_PushBack(&q, &dataIn[0]);
+//     Deque_PushBack(&q, &dataIn[1]);
 
 //     /*****************     Act       *****************/
-//     Deque_Error_e err = Deque_Peek(&q, &peekData);
+//     Deque_Error_e err = Deque_PeekBack(&q, &peekData);
 
 //     /*****************    Assert     *****************/
-//     Deque_Pop(&q, &poppedData);
 //     ASSERT_EQ(Deque_Error_None, err);
 //     ASSERT_EQ(dataIn[0], peekData);
+//     Deque_PopBack(&q, &poppedData);
 //     ASSERT_EQ(peekData, poppedData);
+
 //     PASS();
 // }
 
@@ -686,13 +853,23 @@ TEST Deque_can_back_pop_struct_data_types_when_pushed_from_front()
 
 SUITE(Deque_Suite)
 {
-    // /* Unit Tests */
-    // RUN_TEST(Deque_can_report_empty);
-    // RUN_TEST(Deque_can_report_not_empty);
-    // RUN_TEST(Deque_can_report_full);
-    // RUN_TEST(Deque_can_report_not_full);
-    // RUN_TEST(Deque_pop_fails_if_underflow);
-    // RUN_TEST(Deque_push_fails_if_overflow);
+    /* Unit Tests */
+    RUN_TEST(Deque_can_report_empty);
+    RUN_TEST(Deque_can_report_not_full);
+
+    RUN_TEST(Deque_can_report_not_empty_when_pushed_from_back);
+    RUN_TEST(Deque_can_report_not_empty_when_pushed_from_front);
+
+    RUN_TEST(Deque_can_report_full_when_pushed_from_back);
+    RUN_TEST(Deque_can_report_full_when_pushed_from_front);
+
+    RUN_TEST(Deque_front_pop_fails_if_underflow);
+    RUN_TEST(Deque_back_pop_fails_if_underflow);
+
+    RUN_TEST(Deque_back_push_fails_due_to_overflow_when_pushed_from_back);
+    RUN_TEST(Deque_back_push_fails_due_to_overflow_when_pushed_from_front);
+    RUN_TEST(Deque_front_push_fails_due_to_overflow_when_pushed_from_back);
+    RUN_TEST(Deque_front_push_fails_due_to_overflow_when_pushed_from_front);
 
     RUN_TEST(Deque_can_front_pop_1_byte_data_types_when_pushed_from_back);
     RUN_TEST(Deque_can_front_pop_2_byte_data_types_when_pushed_from_back);
@@ -714,7 +891,8 @@ SUITE(Deque_Suite)
     RUN_TEST(Deque_can_back_pop_8_byte_data_types_when_pushed_from_front);
     RUN_TEST(Deque_can_back_pop_struct_data_types_when_pushed_from_front);
 
-    // RUN_TEST(Deque_can_peek_at_next_element_to_be_popped);
+    RUN_TEST(Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_back);
+    RUN_TEST(Deque_can_peek_at_next_element_to_be_front_popped_when_pushed_from_front);
 
     // /* Integration Tests */
     // RUN_TEST(Deque_can_fill_and_empty_a_large_buffer_with_1_byte_data_types);
