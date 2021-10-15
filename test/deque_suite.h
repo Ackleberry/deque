@@ -1036,53 +1036,203 @@ TEST Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_back_and_pop_bac
     PASS();
 }
 
-// TEST Deque_can_fill_and_empty_a_large_buffer_with_struct_data_types(void)
-// {
-//     typedef struct _Deque_Struct_t
-//     {
-//         uint8_t a;
-//         int16_t b;
-//         uint32_t c;
-//         int8_t d;
-//         uint32_t e;
-//     } Deque_Struct_t;
+TEST Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_back_and_pop_front(void)
+{
+    typedef struct _Deque_Struct_t
+    {
+        uint8_t a;
+        int16_t b;
+        uint32_t c;
+        int8_t d;
+        uint32_t e;
+    } Deque_Struct_t;
 
-//     /*****************    Arrange    *****************/
-//     Deque_t q;
-//     Deque_Struct_t buf[1000];
-//     Deque_Struct_t dataIn[1000] =
-//     {
-//         [  1] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
-//         [101] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
-//         [501] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
-//         [999] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
-//     };
-//     Deque_Struct_t dataOut[1000];
-//     uint8_t err = (uint8_t)Deque_Error_None;
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    Deque_Struct_t buf[1000];
+    Deque_Struct_t dataIn[1000] =
+    {
+        [  1] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [101] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+        [501] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [999] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+    };
+    Deque_Struct_t dataOut[1000];
+    uint8_t err = (uint8_t)Deque_Error_None;
 
-//     Deque_Init(&q, buf, sizeof(buf), sizeof(Deque_Struct_t));
+    Deque_Init(&q, buf, sizeof(buf), sizeof(Deque_Struct_t));
 
-//     /*****************     Act       *****************/
+    /*****************     Act       *****************/
 
-//     /* Fill the deque up */
-//     for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
-//     {
-//         err |= Deque_Push(&q, &dataIn[i]);
-//     }
+    /* Fill the deque up */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
+    {
+        err |= Deque_PushBack(&q, &dataIn[i]);
+    }
 
-//     /* Empty the deque */
-//     for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
-//     {
-//         err |= Deque_Pop(&q, &dataOut[i]);
-//     }
+    /* Empty the deque */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
+    {
+        err |= Deque_PopFront(&q, &dataOut[i]);
+    }
 
-//     /*****************    Assert     *****************/
-//     ASSERT_EQ(Deque_Error_None, (Deque_Error_e)err);
-//     ASSERT_MEM_EQ(dataIn, dataOut, ELEMENTS_IN(dataIn));
-//     ASSERT_EQ(true, Deque_IsEmpty(&q));
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, (Deque_Error_e)err);
+    ASSERT_MEM_EQ(dataIn, dataOut, ELEMENTS_IN(dataIn));
+    ASSERT_EQ(true, Deque_IsEmpty(&q));
 
-//     PASS();
-// }
+    PASS();
+}
+
+TEST Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_front_and_pop_back(void)
+{
+    typedef struct _Deque_Struct_t
+    {
+        uint8_t a;
+        int16_t b;
+        uint32_t c;
+        int8_t d;
+        uint32_t e;
+    } Deque_Struct_t;
+
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    Deque_Struct_t buf[1000];
+    Deque_Struct_t dataIn[1000] =
+    {
+        [  1] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [101] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+        [501] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [999] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+    };
+    Deque_Struct_t dataOut[1000];
+    uint8_t err = (uint8_t)Deque_Error_None;
+
+    Deque_Init(&q, buf, sizeof(buf), sizeof(Deque_Struct_t));
+
+    /*****************     Act       *****************/
+
+    /* Fill the deque up */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
+    {
+        err |= Deque_PushFront(&q, &dataIn[i]);
+    }
+
+    /* Empty the deque */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
+    {
+        err |= Deque_PopBack(&q, &dataOut[i]);
+    }
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, (Deque_Error_e)err);
+    ASSERT_MEM_EQ(dataIn, dataOut, ELEMENTS_IN(dataIn));
+    ASSERT_EQ(true, Deque_IsEmpty(&q));
+
+    PASS();
+}
+
+TEST Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_front_and_pop_front(void)
+{
+    typedef struct _Deque_Struct_t
+    {
+        uint8_t a;
+        int16_t b;
+        uint32_t c;
+        int8_t d;
+        uint32_t e;
+    } Deque_Struct_t;
+
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    Deque_Struct_t buf[1000];
+    Deque_Struct_t dataIn[1000] =
+    {
+        [  1] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [101] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+        [501] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [999] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+    };
+    Deque_Struct_t dataOut[1000];
+    uint8_t err = (uint8_t)Deque_Error_None;
+
+    Deque_Init(&q, buf, sizeof(buf), sizeof(Deque_Struct_t));
+
+    /* Fill the deque up */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
+    {
+        err |= Deque_PushFront(&q, &dataIn[i]);
+    }
+
+    /*****************     Act       *****************/
+    /* Empty the deque */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
+    {
+        err |= Deque_PopFront(&q, &dataOut[i]);
+    }
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, (Deque_Error_e)err);
+    ASSERT_MEM_EQ(&dataIn[999], &dataOut[  0], sizeof(Deque_Struct_t));
+    ASSERT_MEM_EQ(&dataIn[501], &dataOut[498], sizeof(Deque_Struct_t)); /* 999 - 501 */
+    ASSERT_MEM_EQ(&dataIn[101], &dataOut[898], sizeof(Deque_Struct_t)); /* 999 - 101 */
+    ASSERT_MEM_EQ(&dataIn[  1], &dataOut[998], sizeof(Deque_Struct_t)); /* 999 -   1 */
+
+    ASSERT_EQ(true, Deque_IsEmpty(&q));
+
+    PASS();
+}
+
+TEST Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_back_and_pop_back(void)
+{
+    typedef struct _Deque_Struct_t
+    {
+        uint8_t a;
+        int16_t b;
+        uint32_t c;
+        int8_t d;
+        uint32_t e;
+    } Deque_Struct_t;
+
+    /*****************    Arrange    *****************/
+    Deque_t q;
+    Deque_Struct_t buf[1000];
+    Deque_Struct_t dataIn[1000] =
+    {
+        [  1] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [101] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+        [501] = { .a = UINT8_MAX, .b = INT16_MAX, .c = -1, .d = INT8_MIN, .e = 1  },
+        [999] = { .a = INT8_MAX,  .b = INT16_MIN, .c = 0,  .d = INT8_MAX, .e = -1 },
+    };
+    Deque_Struct_t dataOut[1000];
+    uint8_t err = (uint8_t)Deque_Error_None;
+
+    Deque_Init(&q, buf, sizeof(buf), sizeof(Deque_Struct_t));
+
+    /* Fill the deque up */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
+    {
+        err |= Deque_PushBack(&q, &dataIn[i]);
+    }
+
+    /*****************     Act       *****************/
+    /* Empty the deque */
+    for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
+    {
+        err |= Deque_PopBack(&q, &dataOut[i]);
+    }
+
+    /*****************    Assert     *****************/
+    ASSERT_EQ(Deque_Error_None, (Deque_Error_e)err);
+    ASSERT_MEM_EQ(&dataIn[999], &dataOut[  0], sizeof(Deque_Struct_t));
+    ASSERT_MEM_EQ(&dataIn[501], &dataOut[498], sizeof(Deque_Struct_t)); /* 999 - 501 */
+    ASSERT_MEM_EQ(&dataIn[101], &dataOut[898], sizeof(Deque_Struct_t)); /* 999 - 101 */
+    ASSERT_MEM_EQ(&dataIn[  1], &dataOut[998], sizeof(Deque_Struct_t)); /* 999 -   1 */
+
+    ASSERT_EQ(true, Deque_IsEmpty(&q));
+
+    PASS();
+}
 
 // TEST Deque_can_partially_fill_and_empty_multiple_times()
 // {
@@ -1174,7 +1324,11 @@ SUITE(Deque_Suite)
     RUN_TEST(Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_front_and_pop_front);
     RUN_TEST(Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_back_and_pop_back);
 
-    RUN_TEST(Deque_can_fill_and_empty_a_large_buffer_with_struct_data_types);
+    RUN_TEST(Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_back_and_pop_front);
+    RUN_TEST(Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_front_and_pop_back);
+    RUN_TEST(Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_front_and_pop_front);
+    RUN_TEST(Deque_can_empty_a_full_buffer_of_struct_data_types_by_push_back_and_pop_back);
+
     // RUN_TEST(Deque_can_partially_fill_and_empty_multiple_times);
 }
 
