@@ -893,14 +893,13 @@ TEST Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_back_and_pop_fro
 
     Deque_Init(&q, buf, sizeof(buf), sizeof(dataIn[0]));
 
-    /*****************     Act       *****************/
-
     /* Fill the deque up */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
     {
         err |= Deque_PushBack(&q, &dataIn[i]);
     }
 
+    /*****************     Act       *****************/
     /* Empty the deque */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
     {
@@ -932,14 +931,13 @@ TEST Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_front_and_pop_ba
 
     Deque_Init(&q, buf, sizeof(buf), sizeof(dataIn[0]));
 
-    /*****************     Act       *****************/
-
     /* Fill the deque up */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
     {
         err |= Deque_PushFront(&q, &dataIn[i]);
     }
 
+    /*****************     Act       *****************/
     /* Empty the deque */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
     {
@@ -971,14 +969,13 @@ TEST Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_front_and_pop_fr
 
     Deque_Init(&q, buf, sizeof(buf), sizeof(dataIn[0]));
 
-    /*****************     Act       *****************/
-
     /* Fill the deque up */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
     {
         err |= Deque_PushFront(&q, &dataIn[i]);
     }
 
+    /*****************     Act       *****************/
     /* Empty the deque */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
     {
@@ -1014,14 +1011,13 @@ TEST Deque_can_empty_a_full_buffer_of_8_byte_data_types_by_push_back_and_pop_bac
 
     Deque_Init(&q, buf, sizeof(buf), sizeof(dataIn[0]));
 
-    /*****************     Act       *****************/
-
     /* Fill the deque up */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataIn); i++)
     {
         err |= Deque_PushBack(&q, &dataIn[i]);
     }
 
+    /*****************     Act       *****************/
     /* Empty the deque */
     for (uint16_t i = 0; i < ELEMENTS_IN(dataOut); i++)
     {
