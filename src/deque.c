@@ -40,8 +40,8 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid)
     uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
     /* Push the data into the deque one byte at a time */
-    size_t idx = pObj->dataSize;
-    while (idx > 0)
+    size_t byte = pObj->dataSize;
+    while (byte > 0)
     {
         if (Deque_IsFull(pObj))
         {
@@ -61,8 +61,8 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid)
             pObj->front = pObj->bufSize - 1;
         }
 
-        idx--;
-        pObj->pBuf[pObj->front] = pDataIn[idx];
+        byte--;
+        pObj->pBuf[pObj->front] = pDataIn[byte];
     }
 
     return err;
@@ -74,7 +74,7 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid)
     uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
     /* Push the data into the deque one byte at a time */
-    for (size_t idx = 0; idx < pObj->dataSize; idx++)
+    for (size_t byte = 0; byte < pObj->dataSize; byte++)
     {
         if (Deque_IsFull(pObj))
         {
@@ -87,7 +87,7 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid)
             pObj->front = pObj->rear;
         }
 
-        pObj->pBuf[pObj->rear] = pDataIn[idx];
+        pObj->pBuf[pObj->rear] = pDataIn[byte];
 
         /* Increment cursor around buffer */
         pObj->rear++;
@@ -106,7 +106,7 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid)
     uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
     /* Pop the data off the deque one byte at a time */
-    for (size_t idx = 0; idx < pObj->dataSize; idx++)
+    for (size_t byte = 0; byte < pObj->dataSize; byte++)
     {
         if (Deque_IsEmpty(pObj))
         {
@@ -114,7 +114,7 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid)
             break;
         }
 
-        pDataOut[idx] = pObj->pBuf[pObj->front];
+        pDataOut[byte] = pObj->pBuf[pObj->front];
 
         /* Increment cursor around buffer */
         pObj->front++;
@@ -138,8 +138,8 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid)
     uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
     /* Pop the data off the deque one byte at a time */
-    size_t idx = pObj->dataSize;
-    while (idx > 0)
+    size_t byte = pObj->dataSize;
+    while (byte > 0)
     {
         if (Deque_IsEmpty(pObj))
         {
@@ -154,8 +154,8 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid)
             pObj->rear = pObj->bufSize - 1;
         }
 
-        idx--;
-        pDataOut[idx] = pObj->pBuf[pObj->rear];
+        byte--;
+        pDataOut[byte] = pObj->pBuf[pObj->rear];
 
         if (Deque_IsFull(pObj))
         {
