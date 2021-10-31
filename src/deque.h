@@ -29,7 +29,7 @@
  *
  * @param pObj      Pointer to the deque object
  * @param pBuf      Pointer to the deque buffer
- * @param bufSize   Size of the buffer
+ * @param bufSize   Size of the buffer,must be an integer multiple of dataSize
  * @param dataSize  Size of the data type that the deque is handling
  *
  * @return none
@@ -39,10 +39,6 @@ void Deque_Init(Deque_t *pObj, void *pBuf, size_t bufSize, size_t dataSize);
 /*******************************************************************************
  * @brief  Check if the deque is empty
  *
- * @details  Deque top is considered empty when set to largest `size_t` value,
- *           SIZE_MAX. The first added element "rolls" the top over from
- *           SIZE_MAX to 0.
- *
  * @param pObj  Pointer to the deque object
  *
  * @returns true if empty
@@ -51,9 +47,6 @@ bool Deque_IsEmpty(Deque_t *pObj);
 
 /*******************************************************************************
  * @brief Check if the deque is full
- *
- * @details  Deque top is considered full when set to one less than the buffer
- *           size.
  *
  * @param pObj  Pointer to the deque object
  *
