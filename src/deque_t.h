@@ -22,6 +22,9 @@
  *                           E N U M E R A T I O N S                          *
  *============================================================================*/
 
+/**
+ * @brief Error flag
+**/
 typedef enum _Deque_Error_e
 {
     Deque_Error_None = 0,
@@ -32,10 +35,15 @@ typedef enum _Deque_Error_e
  *                             S T R U C T U R E S                            *
  *============================================================================*/
 
+/**
+ * @brief  Deque Object
+ *
+ * @note   This object should never be directly manipulated by the caller.
+**/
 typedef struct _Deque_t
 {
-    size_t   front;    /*!< Buffer index to the front of the deque */
-    size_t   rear;     /*!< Buffer index to the rear of the deque */
+    size_t   front;    /*!< Front (read) buffer cursor */
+    size_t   rear;     /*!< Rear (write) buffer cursor */
     uint8_t *pBuf;     /*!< Pointer to the deque buffer */
     size_t   bufSize;  /*!< Size of the deque buffer */
     size_t   dataSize; /*!< Size of the data type to be stored in the deque */
