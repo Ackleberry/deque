@@ -96,14 +96,14 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn)
             pObj->front = pObj->rear;
         }
 
-        idx--;
+        /* Decrement cursor around buffer */
         pObj->front--;
-
-        if (Deque_IsEmpty(pObj))
+        if (pObj->front == SIZE_MAX)
         {
             pObj->front = pObj->bufSize - 1;
         }
 
+        idx--;
         pObj->pBuf[pObj->front] = pData[idx];
     }
 
@@ -215,14 +215,14 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
             break;
         }
 
-        idx--;
+        /* Decrement cursor around buffer */
         pObj->rear--;
-
         if (pObj->rear == SIZE_MAX)
         {
             pObj->rear = pObj->bufSize - 1;
         }
 
+        idx--;
         pData[idx] = pObj->pBuf[pObj->rear];
 
         if (Deque_IsFull(pObj))
