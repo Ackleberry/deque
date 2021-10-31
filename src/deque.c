@@ -15,19 +15,6 @@
  *                      P U B L I C    F U N C T I O N S                      *
  *============================================================================*/
 
-/*******************************************************************************
- * @brief  Initializes the deque object
- *
- * @details  The caller is responsible for allocating the deque object, and
- *           deque buffer.
- *
- * @param pObj      Pointer to the deque object
- * @param pBuf      Pointer to the deque buffer
- * @param bufSize   Size of the buffer
- * @param dataSize  Size of the data type that the deque is handling
- *
- * @return none
- ******************************************************************************/
 void Deque_Init(Deque_t *pObj, void *pBuf, size_t bufSize, size_t dataSize)
 {
     pObj->bufSize = bufSize;
@@ -37,45 +24,16 @@ void Deque_Init(Deque_t *pObj, void *pBuf, size_t bufSize, size_t dataSize)
     pObj->dataSize = dataSize;
 }
 
-/*******************************************************************************
- * @brief  Check if the deque is empty
- *
- * @details  Deque top is considered empty when set to largest `size_t` value,
- *           SIZE_MAX. The first added element "rolls" the top over from
- *           SIZE_MAX to 0.
- *
- * @param pObj  Pointer to the deque object
- *
- * @returns true if empty
- ******************************************************************************/
 bool Deque_IsEmpty(Deque_t *pObj)
 {
     return (pObj->front == SIZE_MAX);
 }
 
-/*******************************************************************************
- * @brief Check if the deque is full
- *
- * @details  Deque top is considered full when set to one less than the buffer
- *           size.
- *
- * @param pObj  Pointer to the deque object
- *
- * @returns true if full
- ******************************************************************************/
 bool Deque_IsFull(Deque_t *pObj)
 {
     return (pObj->rear == pObj->front);
 }
 
-/*******************************************************************************
- * @brief  Pushes data onto the front of the deque
- *
- * @param pObj     Pointer to the deque object
- * @param pDataIn  Pointer to the data that will be pushed
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn)
 {
     Deque_Error_e err = Deque_Error_None;
@@ -110,14 +68,6 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn)
     return err;
 }
 
-/*******************************************************************************
- * @brief  Pushes data onto the back of the deque
- *
- * @param pObj     Pointer to the deque object
- * @param pDataIn  Pointer to the data that will be pushed
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
 {
     Deque_Error_e err = Deque_Error_None;
@@ -150,14 +100,6 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
     return err;
 }
 
-/*******************************************************************************
- * @brief  Pops data member off the front of the deque
- *
- * @param pObj      Pointer to the deque object
- * @param pDataOut  Pointer to the data that will be popped
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
 {
     Deque_Error_e err = Deque_Error_None;
@@ -190,16 +132,6 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
     return err;
 }
 
-/*******************************************************************************
- * @brief  Pops data member off the rear of the deque
- *
- * @details This function is most similar to a Stack_Pop()
- *
- * @param pObj      Pointer to the deque object
- * @param pDataOut  Pointer to the data that will be popped
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
 {
     Deque_Error_e err = Deque_Error_None;
@@ -234,14 +166,6 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
     return err;
 }
 
-/*******************************************************************************
- * @brief  Peek at the data at the front of the deque
- *
- * @param  pObj      Pointer to the deque object
- * @param  pDataOut  Pointer to the peeked data
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOut)
 {
     Deque_Error_e err = Deque_Error_None;
@@ -255,14 +179,6 @@ Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOut)
     return err;
 }
 
-/*******************************************************************************
- * @brief  Peek at the data at the back of the deque
- *
- * @param  pObj      Pointer to the deque object
- * @param  pDataOut  Pointer to the peeked data
- *
- * @returns Deque error flag
- ******************************************************************************/
 Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOut)
 {
     Deque_Error_e err = Deque_Error_None;
