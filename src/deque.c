@@ -139,7 +139,7 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
 
         pObj->pBuf[pObj->rear] = pData[idx];
 
-        /* Advance cursor around buffer */
+        /* Increment cursor around buffer */
         pObj->rear++;
         if (pObj->rear >= pObj->bufSize)
         {
@@ -174,7 +174,7 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
 
         pData[idx] = pObj->pBuf[pObj->front];
 
-        /* Advance cursor around buffer */
+        /* Increment cursor around buffer */
         pObj->front++;
         if (pObj->front >= pObj->bufSize)
         {
