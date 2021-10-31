@@ -34,10 +34,10 @@ bool Deque_IsFull(Deque_t *pObj)
     return (pObj->rear == pObj->front);
 }
 
-Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn)
+Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid)
 {
     Deque_Error_e err = Deque_Error_None;
-    uint8_t *pData = (uint8_t *)pDataIn;
+    uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
     /* Push the data into the deque one byte at a time */
     size_t idx = pObj->dataSize;
@@ -62,16 +62,16 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn)
         }
 
         idx--;
-        pObj->pBuf[pObj->front] = pData[idx];
+        pObj->pBuf[pObj->front] = pDataIn[idx];
     }
 
     return err;
 }
 
-Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
+Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid)
 {
     Deque_Error_e err = Deque_Error_None;
-    uint8_t *pData = (uint8_t *)pDataIn;
+    uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
     /* Push the data into the deque one byte at a time */
     for (size_t idx = 0; idx < pObj->dataSize; idx++)
@@ -87,7 +87,7 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
             pObj->front = pObj->rear;
         }
 
-        pObj->pBuf[pObj->rear] = pData[idx];
+        pObj->pBuf[pObj->rear] = pDataIn[idx];
 
         /* Increment cursor around buffer */
         pObj->rear++;
@@ -100,10 +100,10 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn)
     return err;
 }
 
-Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
+Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid)
 {
     Deque_Error_e err = Deque_Error_None;
-    uint8_t *pData = (uint8_t *)pDataOut;
+    uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
     /* Pop the data off the deque one byte at a time */
     for (size_t idx = 0; idx < pObj->dataSize; idx++)
@@ -114,7 +114,7 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
             break;
         }
 
-        pData[idx] = pObj->pBuf[pObj->front];
+        pDataOut[idx] = pObj->pBuf[pObj->front];
 
         /* Increment cursor around buffer */
         pObj->front++;
@@ -132,10 +132,10 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut)
     return err;
 }
 
-Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
+Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid)
 {
     Deque_Error_e err = Deque_Error_None;
-    uint8_t *pData = (uint8_t *)pDataOut;
+    uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
     /* Pop the data off the deque one byte at a time */
     size_t idx = pObj->dataSize;
@@ -155,7 +155,7 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
         }
 
         idx--;
-        pData[idx] = pObj->pBuf[pObj->rear];
+        pDataOut[idx] = pObj->pBuf[pObj->rear];
 
         if (Deque_IsFull(pObj))
         {
@@ -166,26 +166,26 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut)
     return err;
 }
 
-Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOut)
+Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOutVoid)
 {
     Deque_Error_e err = Deque_Error_None;
     size_t front = pObj->front;
     size_t rear = pObj->rear;
 
-    err = Deque_PopFront(pObj, pDataOut);
+    err = Deque_PopFront(pObj, pDataOutVoid);
 
     pObj->front = front;
     pObj->rear = rear;
     return err;
 }
 
-Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOut)
+Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOutVoid)
 {
     Deque_Error_e err = Deque_Error_None;
     size_t front = pObj->front;
     size_t rear = pObj->rear;
 
-    err = Deque_PopBack(pObj, pDataOut);
+    err = Deque_PopBack(pObj, pDataOutVoid);
 
     pObj->front = front;
     pObj->rear = rear;

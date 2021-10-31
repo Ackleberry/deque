@@ -57,68 +57,68 @@ bool Deque_IsFull(Deque_t *pObj);
 /*******************************************************************************
  * @brief  Pushes data onto the front of the deque
  *
- * @param pObj     Pointer to the deque object
- * @param pDataIn  Pointer to the data that will be pushed
+ * @param pObj         Pointer to the deque object
+ * @param pDataInVoid  Pointer to the data that will be pushed
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataIn);
+Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid);
 
 /*******************************************************************************
  * @brief  Pushes data onto the back of the deque
  *
  * @details This function is equivalent to a Queue_Push(), Stack_Push()
  *
- * @param pObj     Pointer to the deque object
- * @param pDataIn  Pointer to the data that will be pushed
+ * @param pObj         Pointer to the deque object
+ * @param pDataInVoid  Pointer to the data that will be pushed
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataIn);
+Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid);
 
 /*******************************************************************************
  * @brief  Pops data member off the front of the deque
  *
  * @details This function is equivalent to a Queue_Pop()
  *
- * @param pObj      Pointer to the deque object
- * @param pDataOut  Pointer to the data that will be popped
+ * @param pObj          Pointer to the deque object
+ * @param pDataOutVoid  Pointer to the data that will be popped
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOut);
+Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid);
 
 /*******************************************************************************
  * @brief  Pops data member off the rear of the deque
  *
  * @details This function is equivalent to a Stack_Pop()
  *
- * @param pObj      Pointer to the deque object
- * @param pDataOut  Pointer to the data that will be popped
+ * @param pObj          Pointer to the deque object
+ * @param pDataOutVoid  Pointer to the data that will be popped
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOut);
+Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid);
 
 /*******************************************************************************
  * @brief  Peek at the data at the front of the deque
  *
- * @param  pObj      Pointer to the deque object
- * @param  pDataOut  Pointer to the peeked data
+ * @param  pObj          Pointer to the deque object
+ * @param  pDataOutVoid  Pointer to the peeked data
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOut);
+Deque_Error_e Deque_PeekFront(Deque_t *pObj, void *pDataOutVoid);
 
 /*******************************************************************************
  * @brief  Peek at the data at the back of the deque
  *
- * @param  pObj      Pointer to the deque object
- * @param  pDataOut  Pointer to the peeked data
+ * @param  pObj          Pointer to the deque object
+ * @param  pDataOutVoid  Pointer to the peeked data
  *
  * @returns Deque error flag
  ******************************************************************************/
-Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOut);
+Deque_Error_e Deque_PeekBack(Deque_t *pObj, void *pDataOutVoid);
 
 
 #endif /* DEQUE_H_INCLUDED */
