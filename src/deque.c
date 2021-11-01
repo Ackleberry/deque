@@ -39,30 +39,30 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid)
     Deque_Error_e err = Deque_Error_None;
     uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
-    /* Push the data into the deque one byte at a time */
-    size_t byte = pObj->dataSize;
-    while (byte > 0)
+    if (Deque_IsFull(pObj))
     {
-        if (Deque_IsFull(pObj))
-        {
-            err = Deque_Error;
-            break;
-        }
-
+        err = Deque_Error;
+    }
+    else
+    {
         if (Deque_IsEmpty(pObj))
         {
+            /* Unstash front cursor */
             pObj->front = pObj->rear;
         }
 
-        /* Decrement cursor around buffer */
-        pObj->front--;
-        if (pObj->front == SIZE_MAX)
+        /* Push the data into the deque one byte at a time */
+        for (size_t byte = pObj->dataSize - 1; byte < pObj->dataSize; byte--)
         {
-            pObj->front = pObj->bufSize - 1;
-        }
+            /* Decrement cursor around buffer */
+            pObj->front--;
+            if (pObj->front == SIZE_MAX)
+            {
+                pObj->front = pObj->bufSize - 1;
+            }
 
-        byte--;
-        pObj->pBuf[pObj->front] = pDataIn[byte];
+            pObj->pBuf[pObj->front] = pDataIn[byte];
+        }
     }
 
     return err;
@@ -73,27 +73,29 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid)
     Deque_Error_e err = Deque_Error_None;
     uint8_t *pDataIn = (uint8_t *)pDataInVoid;
 
-    /* Push the data into the deque one byte at a time */
-    for (size_t byte = 0; byte < pObj->dataSize; byte++)
+    if (Deque_IsFull(pObj))
     {
-        if (Deque_IsFull(pObj))
-        {
-            err = Deque_Error;
-            break;
-        }
-
+        err = Deque_Error;
+    }
+    else
+    {
         if (Deque_IsEmpty(pObj))
         {
+            /* Unstash front cursor */
             pObj->front = pObj->rear;
         }
 
-        pObj->pBuf[pObj->rear] = pDataIn[byte];
-
-        /* Increment cursor around buffer */
-        pObj->rear++;
-        if (pObj->rear >= pObj->bufSize)
+        /* Push the data into the deque one byte at a time */
+        for (size_t byte = 0; byte < pObj->dataSize; byte++)
         {
-            pObj->rear = 0;
+            pObj->pBuf[pObj->rear] = pDataIn[byte];
+
+            /* Increment cursor around buffer */
+            pObj->rear++;
+            if (pObj->rear >= pObj->bufSize)
+            {
+                pObj->rear = 0;
+            }
         }
     }
 
@@ -105,26 +107,28 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid)
     Deque_Error_e err = Deque_Error_None;
     uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
-    /* Pop the data off the deque one byte at a time */
-    for (size_t byte = 0; byte < pObj->dataSize; byte++)
+    if (Deque_IsEmpty(pObj))
     {
-        if (Deque_IsEmpty(pObj))
+        err = Deque_Error;
+    }
+    else
+    {
+        /* Pop the data off the deque one byte at a time */
+        for (size_t byte = 0; byte < pObj->dataSize; byte++)
         {
-            err = Deque_Error;
-            break;
-        }
+            pDataOut[byte] = pObj->pBuf[pObj->front];
 
-        pDataOut[byte] = pObj->pBuf[pObj->front];
-
-        /* Increment cursor around buffer */
-        pObj->front++;
-        if (pObj->front >= pObj->bufSize)
-        {
-            pObj->front = 0;
+            /* Increment cursor around buffer */
+            pObj->front++;
+            if (pObj->front >= pObj->bufSize)
+            {
+                pObj->front = 0;
+            }
         }
 
         if (Deque_IsFull(pObj))
         {
+            /* Stash front cursor */
             pObj->front = SIZE_MAX;
         }
     }
@@ -137,28 +141,28 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid)
     Deque_Error_e err = Deque_Error_None;
     uint8_t *pDataOut = (uint8_t *)pDataOutVoid;
 
-    /* Pop the data off the deque one byte at a time */
-    size_t byte = pObj->dataSize;
-    while (byte > 0)
+    if (Deque_IsEmpty(pObj))
     {
-        if (Deque_IsEmpty(pObj))
+        err = Deque_Error;
+    }
+    else
+    {
+        /* Pop the data off the deque one byte at a time */
+        for (size_t byte = pObj->dataSize - 1; byte < pObj->dataSize; byte--)
         {
-            err = Deque_Error;
-            break;
-        }
+            /* Decrement cursor around buffer */
+            pObj->rear--;
+            if (pObj->rear == SIZE_MAX)
+            {
+                pObj->rear = pObj->bufSize - 1;
+            }
 
-        /* Decrement cursor around buffer */
-        pObj->rear--;
-        if (pObj->rear == SIZE_MAX)
-        {
-            pObj->rear = pObj->bufSize - 1;
+            pDataOut[byte] = pObj->pBuf[pObj->rear];
         }
-
-        byte--;
-        pDataOut[byte] = pObj->pBuf[pObj->rear];
 
         if (Deque_IsFull(pObj))
         {
+            /* Stash front cursor */
             pObj->front = SIZE_MAX;
         }
     }
