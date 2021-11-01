@@ -56,7 +56,7 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid)
         {
             /* Decrement cursor around buffer */
             pObj->front--;
-            if (pObj->front == SIZE_MAX)
+            if (pObj->front >= pObj->bufSize)
             {
                 pObj->front = pObj->bufSize - 1;
             }
@@ -152,7 +152,7 @@ Deque_Error_e Deque_PopBack(Deque_t *pObj, void *pDataOutVoid)
         {
             /* Decrement cursor around buffer */
             pObj->rear--;
-            if (pObj->rear == SIZE_MAX)
+            if (pObj->rear >= pObj->bufSize)
             {
                 pObj->rear = pObj->bufSize - 1;
             }
