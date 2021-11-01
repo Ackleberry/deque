@@ -29,7 +29,7 @@
  *
  * @param pObj      Pointer to the deque object
  * @param pBuf      Pointer to the deque buffer
- * @param bufSize   Size of the buffer,must be an integer multiple of dataSize
+ * @param bufSize   Size of the buffer, must be an integer multiple of dataSize
  * @param dataSize  Size of the data type that the deque is handling
  *
  * @return none
