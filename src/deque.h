@@ -31,8 +31,6 @@
  * @param pBuf      Pointer to the deque buffer
  * @param bufSize   Size of the buffer, must be an integer multiple of dataSize
  * @param dataSize  Size of the data type that the deque is handling
- *
- * @return none
  ******************************************************************************/
 void Deque_Init(Deque_t *pObj, void *pBuf, size_t bufSize, size_t dataSize);
 
@@ -57,6 +55,8 @@ bool Deque_IsFull(Deque_t *pObj);
 /*******************************************************************************
  * @brief  Pushes data onto the front of the deque
  *
+ * @details This function is equivalent to a Stack_Push()
+ *
  * @param pObj         Pointer to the deque object
  * @param pDataInVoid  Pointer to the data that will be pushed
  *
@@ -67,7 +67,7 @@ Deque_Error_e Deque_PushFront(Deque_t *pObj, void *pDataInVoid);
 /*******************************************************************************
  * @brief  Pushes data onto the back of the deque
  *
- * @details This function is equivalent to a Queue_Push(), Stack_Push()
+ * @details This function is equivalent to a Queue_Push()
  *
  * @param pObj         Pointer to the deque object
  * @param pDataInVoid  Pointer to the data that will be pushed
@@ -79,7 +79,7 @@ Deque_Error_e Deque_PushBack(Deque_t *pObj, void *pDataInVoid);
 /*******************************************************************************
  * @brief  Pops data member off the front of the deque
  *
- * @details This function is equivalent to a Queue_Pop()
+ * @details This function is equivalent to a Queue_Pop(), Stack_Pop()
  *
  * @param pObj          Pointer to the deque object
  * @param pDataOutVoid  Pointer to the data that will be popped
@@ -90,8 +90,6 @@ Deque_Error_e Deque_PopFront(Deque_t *pObj, void *pDataOutVoid);
 
 /*******************************************************************************
  * @brief  Pops data member off the rear of the deque
- *
- * @details This function is equivalent to a Stack_Pop()
  *
  * @param pObj          Pointer to the deque object
  * @param pDataOutVoid  Pointer to the data that will be popped
